@@ -26,9 +26,12 @@
       return html;
     },
     draw: function(bins) {
-      var i;
+      var i, colorString;
       for (i = 0; i < this.numberOfBins; i++) {
-        this.bars[i].style = 'height:' + (bins[i] / 256 * 100) + 'px';
+        colorString = 'hsl(' + Math.floor(i * 360 / this.numberOfBins) + ', 100%, 50%)';
+        this.bars[i].style =
+          'height:' + (bins[i] / 256 * 100) + 'px' +
+          ';background-color:' + colorString;
       }
     }
   };
