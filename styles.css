@@ -1,0 +1,15 @@
+#bars > ul {
+  list-style-type: none;
+}
+
+#bars > ul > li {
+  width: 20px;
+  background-color: red;
+  display: inline-block;
+  margin: 0 2px;
+}
+
+#bars > ul > li.height-setter {
+  height: 100px;
+  visibility: hidden;
+}
