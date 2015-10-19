@@ -20,8 +20,8 @@
     <script>
       (function(global) {
         'use strict';
-        global.app.start(function(audioCtx, provideSource) {
-          provideSource(audioCtx.createMediaElementSource(document.querySelector('audio')));
+        global.app.start(function(audioCtx, onSourceReady) {
+          onSourceReady(audioCtx.createMediaElementSource(document.querySelector('audio')));
         });
 
         global.app.enableSoundOutput();
