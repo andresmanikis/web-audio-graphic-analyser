@@ -15,12 +15,12 @@
     <script>
       (function(global) {
         'use strict';
-        global.app.start(function(audioCtx, done) {
+        global.app.start(function(audioCtx, provideSource) {
           global.navigator.mediaDevices.getUserMedia({ audio: true, video: false })
             .then(function(stream) {
               // See https://bugzilla.mozilla.org/show_bug.cgi?id=934512
-              global.savedInstanceSoNotGC = audioCtx.createMediaStreamSource(stream);
-              done(global.savedInstanceSoNotGC);
+              global.savedStreamInstanceSoNotGC = audioCtx.createMediaStreamSource(stream);
+              provideSource(global.savedStreamInstanceSoNotGC);
             }, function() {
               global.alert('Sorry, couldn\'t connect to your mic :(');
             });
