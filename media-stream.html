@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Analyser example - Media Stream</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+
+  <body>
+    <div id="bars"></div>
+
+    <script src="analyser.js"></script>
+    <script src="visualizator.js"></script>
+    <script src="app.js"></script>
+
+    <script>
+      (function(global) {
+        'use strict';
+        global.app.start(function(audioCtx, done) {
+          global.navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+            .then(function(stream) {
+              // See https://bugzilla.mozilla.org/show_bug.cgi?id=934512
+              global.savedInstanceSoNotGC = audioCtx.createMediaStreamSource(stream);
+              done(global.savedInstanceSoNotGC);
+            }, function() {
+              global.alert('Sorry, couldn\'t connect to your mic :(');
+            });
+        });
+
+      })(window);
+    </script>
+  </body>
+</html>

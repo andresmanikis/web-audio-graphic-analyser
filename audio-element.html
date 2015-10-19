@@ -16,5 +16,16 @@
     <script src="analyser.js"></script>
     <script src="visualizator.js"></script>
     <script src="app.js"></script>
+
+    <script>
+      (function(global) {
+        'use strict';
+        global.app.start(function(audioCtx, done) {
+          done(audioCtx.createMediaElementSource(document.querySelector('audio')));
+        });
+
+        global.app.enableSoundOutput();
+      })(window);
+    </script>
   </body>
 </html>

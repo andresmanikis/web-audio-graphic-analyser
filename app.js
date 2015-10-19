@@ -1,17 +1,27 @@
 (function(global) {
   'use strict';
 
-  var analyser = global.analyser;
-  var visualizator = global.visualizator;
+  var app = {
+    start: function(provideSource) {
+      var NUMBER_OF_BINS = 32;
 
-  var NUMBER_OF_BINS = 32;
-  var audioCtx = new window.AudioContext();
-  var source = audioCtx.createMediaElementSource(document.querySelector('audio'));
+      app.audioCtx = new global.AudioContext();
+      app.analyser = global.analyser;
+      var visualizator = global.visualizator;
 
-  visualizator.init(NUMBER_OF_BINS, document.querySelector('#bars'));
-  analyser.init(NUMBER_OF_BINS, audioCtx, source, audioCtx.destination);
+      provideSource(app.audioCtx, function(source) {
+        visualizator.init(NUMBER_OF_BINS, document.querySelector('#bars'));
+        app.analyser.init(NUMBER_OF_BINS, app.audioCtx, source, app.audioCtx.destination);
 
-  setInterval(function() {
-    visualizator.draw(analyser.analyze());
-  }, 50);
+        setInterval(function() {
+          visualizator.draw(app.analyser.analyze());
+        }, 50);
+      });
+    },
+    enableSoundOutput: function() {
+      app.analyser.setDestination(this.audioCtx.destination);
+    }
+  };
+
+  global.app = app;
 })(window);
